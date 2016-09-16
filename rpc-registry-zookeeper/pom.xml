@@ -9,16 +9,38 @@
     <parent>
         <groupId>com.ob.rpc</groupId>
         <artifactId>rpc</artifactId>
-        <version>0.0.1-snapshot</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>rpc-registry-zookeeper</artifactId>
 
     <dependencies>
+        <!-- spring boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- log -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
+
         <!-- ZooKeeper -->
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
@@ -42,6 +64,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <!-- ZkClient -->
         <dependency>
             <groupId>com.101tec</groupId>

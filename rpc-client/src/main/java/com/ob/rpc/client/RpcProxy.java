@@ -6,6 +6,10 @@ import com.ob.rpc.common.util.StringUtil;
 import com.ob.rpc.registry.ServiceDiscovery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -18,21 +22,19 @@ import java.util.UUID;
  * @author o&b
  *
  */
+@Component
 public class RpcProxy {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RpcProxy.class);
 
-    private String serviceAddress;
-
+    @Autowired
     private ServiceDiscovery serviceDiscovery;
 
-    public RpcProxy(String serviceAddress) {
-        this.serviceAddress = serviceAddress;
-    }
+    // init by serviceDiscovery
+    private String serviceAddress;
 
-    public RpcProxy(ServiceDiscovery serviceDiscovery) {
-        this.serviceDiscovery = serviceDiscovery;
-    }
+    public RpcProxy() {}
+
 
     @SuppressWarnings("unchecked")
     public <T> T create(final Class<?> interfaceClass) {

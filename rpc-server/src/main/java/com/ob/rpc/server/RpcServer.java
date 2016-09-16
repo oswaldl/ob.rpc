@@ -16,8 +16,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,12 +31,15 @@ import java.util.Map;
  * @author o&b
  *
  */
+@Component
 public class RpcServer implements ApplicationContextAware, InitializingBean {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RpcServer.class);
 
+    @Value("${rpc.service.address}")
     private String serviceAddress;
 
+    @Autowired
     private ServiceRegistry serviceRegistry;
 
     /**
@@ -41,12 +47,10 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
      */
     private Map<String, Object> handlerMap = new HashMap<>();
 
-    public RpcServer(String serviceAddress) {
-        this.serviceAddress = serviceAddress;
+    public RpcServer() {
     }
 
-    public RpcServer(String serviceAddress, ServiceRegistry serviceRegistry) {
-        this.serviceAddress = serviceAddress;
+    public RpcServer(ServiceRegistry serviceRegistry) {
         this.serviceRegistry = serviceRegistry;
     }
 
@@ -70,7 +74,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
                 handlerMap.put(serviceName, serviceBean);
             }
         }else {
-            System.out.println("no service provider loaded:"+serviceBeanMap);
+            LOGGER.info("no service provider loaded:"+serviceBeanMap);
         }
     }
 
@@ -100,7 +104,6 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
             bootstrap.option(ChannelOption.SO_BACKLOG, 1024);
             bootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
             // 获取 RPC 服务器的 IP 地址与端口号
-            System.out.println(serviceAddress);
             String[] addressArray = StringUtil.split(serviceAddress, ":");
             String ip = addressArray[0];
             int port = Integer.parseInt(addressArray[1]);
@@ -110,14 +113,12 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
             if (serviceRegistry != null) {
                 for (String interfaceName : handlerMap.keySet()) {
                     serviceRegistry.register(interfaceName, serviceAddress);
-                    System.out.println("register service: "+interfaceName+"=>"+ serviceAddress);
                     LOGGER.info("register service: {} => {}", interfaceName, serviceAddress);
                 }
-                System.out.println(" serviceRegistry "+serviceRegistry+",handlerMap "+handlerMap);
+                LOGGER.info(" serviceRegistry "+serviceRegistry+",handlerMap "+handlerMap);
             }else{
-                System.out.println("no serviceRegistry "+serviceRegistry);
+                LOGGER.info("no serviceRegistry "+serviceRegistry);
             }
-            System.out.println("server started on port: "+port);
             LOGGER.info("server started on port {}", port);
             // 关闭 RPC 服务器
             future.channel().closeFuture().sync();

@@ -6,20 +6,23 @@ import com.ob.rpc.registry.ServiceRegistry;
 import org.I0Itec.zkclient.ZkClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 /**
  * 基于 ZooKeeper 的服务注册接口实现
  *
  * @author o&b
  *
  */
+@Component
 public class ZooKeeperServiceRegistry implements ServiceRegistry {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ZooKeeperServiceRegistry.class);
 
     private final ZkClient zkClient;
 
-    public ZooKeeperServiceRegistry(String zkAddress) {
+
+    public ZooKeeperServiceRegistry(@Value("${rpc.registry.address}") String zkAddress) {
         try {
             // 创建 ZooKeeper 客户端
             zkClient = new ZkClient(zkAddress, Constant.ZK_SESSION_TIMEOUT, Constant.ZK_CONNECTION_TIMEOUT);
@@ -51,4 +54,6 @@ public class ZooKeeperServiceRegistry implements ServiceRegistry {
         String addressNode = zkClient.createEphemeralSequential(addressPath, serviceAddress);
         LOGGER.debug("create address node: {}", addressNode);
     }
+
+
 }

@@ -20,7 +20,7 @@
 
     <logger name="rpcServerLogger">
         <level value="info"/>
-        <appender-ref ref="CNGCS_FILE_APPENDER"/>
+        <appender-ref ref="RPC_SERVER_FILE_APPENDER"/>
     </logger>
 
     <root>

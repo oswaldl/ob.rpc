@@ -9,6 +9,7 @@ public class SystemException extends RuntimeException{
     private String errorMsg;
 
     public SystemException(String errorCode, String errorMsg){
+        super(errorMsg);
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
     }

@@ -5,6 +5,8 @@ import com.ob.rpc.registry.ServiceDiscovery;
 import org.I0Itec.zkclient.ZkClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -15,13 +17,14 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author o&b
  *
  */
+@Component
 public class ZooKeeperServiceDiscovery implements ServiceDiscovery {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ZooKeeperServiceDiscovery.class);
 
     private String zkAddress;
 
-    public ZooKeeperServiceDiscovery(String zkAddress) {
+    public ZooKeeperServiceDiscovery(@Value("${rpc.registry.address}") String zkAddress) {
         this.zkAddress = zkAddress;
     }
 

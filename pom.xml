@@ -8,7 +8,7 @@
 
     <groupId>com.ob.rpc</groupId>
     <artifactId>rpc</artifactId>
-    <version>0.0.1-snapshot</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -19,7 +19,7 @@
         <version.protostuff>1.0.9</version.protostuff>
         <version.objenesis>2.1</version.objenesis>
         <version.cglib>3.1</version.cglib>
-        <version.zookeeper>3.4.9</version.zookeeper>
+        <version.zookeeper>3.4.8</version.zookeeper>
         <version.zkclient>0.9</version.zkclient>
         <version.commons-lang>3.3.2</version.commons-lang>
         <version.commons-collections>4.0</version.commons-collections>
@@ -27,6 +27,8 @@
         <version.maven-surefire-plugin>2.18.1</version.maven-surefire-plugin>
         <version.maven-source-plugin>2.4</version.maven-source-plugin>
         <version.maven-javadoc-plugin>2.10.3</version.maven-javadoc-plugin>
+        <spring.boot.version>1.4.0.RELEASE</spring.boot.version>
+        <json.path.version>2.2.0</json.path.version>
     </properties>
 
     <modules>
@@ -44,21 +46,26 @@
 
             <!-- Spring -->
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context</artifactId>
-                <version>${version.spring}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${spring.boot.version}</version>
             </dependency>
-
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-core</artifactId>
-                <version>${version.spring}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring.boot.version}</version>
             </dependency>
-
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>${version.spring}</version>
+                <groupId>com.jayway.jsonpath</groupId>
+                <artifactId>json-path</artifactId>
+                <version>${json.path.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring.boot.version}</version>
+                <scope>test</scope>
             </dependency>
             <!-- Netty -->
             <dependency>
@@ -175,54 +182,17 @@
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <!-- Source -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>${version.maven-source-plugin}</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- Javadoc -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${version.maven-javadoc-plugin}</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <distributionManagement>
-                <repository>
-                    <id>nexus-releases</id>
-                    <url>http://nexus.ycmsh.com/content/repositories/releases/</url>
-                </repository>
-                <snapshotRepository>
-                    <id>nexus-snapshots</id>
-                    <url>http://nexus.ycmsh.com/content/repositories/snapshots/</url>
-                </snapshotRepository>
-            </distributionManagement>
-        </profile>
-    </profiles>
-
-
+    <distributionManagement>
+        <repository>
+            <id>ob-releases</id>
+            <url>http://genes.ob.com:8081/content/repositories/releases/</url>
+            <name>Nexus Release Repository</name>
+        </repository>
+        <snapshotRepository>
+            <id>ob-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://genes.ob.com:8081/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
