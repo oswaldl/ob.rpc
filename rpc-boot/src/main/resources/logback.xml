@@ -2,13 +2,13 @@
 <configuration debug="true" scan="false" scanPeriod="60 seconds">
 
     <appender name="RPC_SERVER_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>/var/rpc/rpcServer.log</file>
-        <encoding>${loggingCharset}</encoding>
+        <file>/var/ob_rpc/rpcServer.log</file>
+        <!--<encoding>utf-8</encoding>-->
         <append>false</append>
         <prudent>false</prudent>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>/var/rpc/rpcServer.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <FileNamePattern>/var/ob_rpc/rpcServer.log.%d{yyyy-MM-dd}</FileNamePattern>
             <MaxHistory>10</MaxHistory>
         </rollingPolicy>
 
