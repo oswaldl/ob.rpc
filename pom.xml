@@ -38,7 +38,8 @@
         <module>rpc-registry</module>
         <module>rpc-registry-zookeeper</module>
         <module>rpc-web</module>
-        <module>rpc-boot</module>
+<!--        <module>rpc-boot</module>
+-->
     </modules>
 
     <dependencyManagement>

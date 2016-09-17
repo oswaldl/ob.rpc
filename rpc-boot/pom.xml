@@ -10,7 +10,6 @@
         <version>1.4.0.RELEASE</version>
     </parent>
     
-    <groupId>com.ob.rpc</groupId>
     <artifactId>rpc-boot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -43,13 +42,13 @@
         <dependency>
             <groupId>com.sample.project</groupId>
             <artifactId>rpc-sample-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.sample.project</groupId>
             <artifactId>rpc-sample-provider</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
@@ -75,4 +74,10 @@
             <url>http://genes.ob.com:8081/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
+    <repositories>
+        <repository>
+            <id>ob-snapshots</id>
+            <url>http://genes.ob.com:8081/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
 </project>
