@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="false" scanPeriod="60 seconds">
+
+    <appender name="RPC_SERVER_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/rpc/rpcServer.log</file>
+        <encoding>${loggingCharset}</encoding>
+        <append>false</append>
+        <prudent>false</prudent>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/var/rpc/rpcServer.log.%d{yyyy-MM-dd}</FileNamePattern>
+            <MaxHistory>10</MaxHistory>
+        </rollingPolicy>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%date %level %class{0}.%method %line - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <logger name="rpcServerLogger">
+        <level value="info"/>
+        <appender-ref ref="RPC_SERVER_FILE_APPENDER"/>
+    </logger>
+
+    <root>
+        <level value="info"/>
+        <appender-ref ref="RPC_SERVER_FILE_APPENDER"/>
+    </root>
+</configuration>
