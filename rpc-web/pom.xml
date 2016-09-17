@@ -16,17 +16,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.sample.project</groupId>
-            <artifactId>rpc-sample-server</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.sample.project</groupId>
-            <artifactId>rpc-sample-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
 
         <!-- rpc server -->
         <dependency>
@@ -58,14 +47,31 @@
         <dependency>
             <groupId>com.sample.project</groupId>
             <artifactId>rpc-sample-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.sample.project</groupId>
             <artifactId>rpc-sample-provider</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
+    <distributionManagement>
+        <repository>
+            <id>ob-releases</id>
+            <url>http://genes.ob.com:8081/content/repositories/releases/</url>
+            <name>Nexus Release Repository</name>
+        </repository>
+        <snapshotRepository>
+            <id>ob-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://genes.ob.com:8081/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <repositories>
+        <repository>
+            <id>ob-snapshots</id>
+            <url>http://genes.ob.com:8081/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
 </project>
