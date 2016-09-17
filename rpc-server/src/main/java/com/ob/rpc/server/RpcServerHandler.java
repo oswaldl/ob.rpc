@@ -2,6 +2,8 @@ package com.ob.rpc.server;
 
 import com.ob.rpc.common.bean.RpcRequest;
 import com.ob.rpc.common.bean.RpcResponse;
+import com.ob.rpc.common.exception.ErrorEnum;
+import com.ob.rpc.common.exception.SystemException;
 import com.ob.rpc.common.util.StringUtil;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
@@ -46,6 +48,7 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
     }
 
     private Object handle(RpcRequest request) throws Exception {
+        LOGGER.info("start handling request:{}",request);
         // 获取服务对象
         String serviceName = request.getInterfaceName();
         String serviceVersion = request.getServiceVersion();
@@ -68,7 +71,14 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest> {
         // 使用 CGLib 执行反射调用
         FastClass serviceFastClass = FastClass.create(serviceClass);
         FastMethod serviceFastMethod = serviceFastClass.getMethod(methodName, parameterTypes);
-        return serviceFastMethod.invoke(serviceBean, parameters);
+        try {
+            Object rtn = serviceFastMethod.invoke(serviceBean, parameters);
+            LOGGER.info("success handle request with response:{}",rtn);
+            return rtn;
+        }catch (Exception e){
+            LOGGER.error("fail to handle request",e);
+            throw new SystemException(ErrorEnum.SERVICE_INVOKE.toString(),"rpc server invoke error");
+        }
     }
 
     @Override
