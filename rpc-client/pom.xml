@@ -37,13 +37,13 @@
     <distributionManagement>
         <repository>
             <id>ob-releases</id>
-            <url>http://genes.ob.com:8081/content/repositories/releases/</url>
+            <url>http://genes.ob.com:8091/content/repositories/releases/</url>
             <name>Nexus Release Repository</name>
         </repository>
         <snapshotRepository>
             <id>ob-snapshots</id>
             <name>Nexus Snapshot Repository</name>
-            <url>http://genes.ob.com:8081/content/repositories/snapshots/</url>
+            <url>http://genes.ob.com:8091/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
